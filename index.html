@@ -38,11 +38,19 @@ body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align
 @keyframes curious{0%,80%,100%{transform:none}86%{transform:rotate(-9deg)}93%{transform:rotate(6deg)}}
 @keyframes jump{0%{transform:none}18%{transform:scale(1.08,.88)}45%{transform:translateY(-34px) scale(.94,1.06)}72%{transform:translateY(0) scale(1.06,.94)}100%{transform:none}}
 @keyframes starpop{0%{transform:scale(0) rotate(-90deg)}70%{transform:scale(1.35) rotate(12deg)}100%{transform:none}}
-.bubble{position:relative;background:var(--card);border:3px solid var(--ink);border-radius:26px;padding:14px 20px;text-align:center;max-width:340px;margin:0 0 18px;opacity:0;animation:pop .45s .9s cubic-bezier(.3,1.5,.5,1) both;box-shadow:0 6px 18px rgba(80,50,20,.08)}
-.bubble:after{content:'';position:absolute;left:50%;bottom:-14px;width:22px;height:22px;background:var(--card);border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:translateX(-50%) rotate(45deg);border-bottom-right-radius:6px}
+.bubble{position:relative;background:var(--card);border:3px solid var(--ink);border-radius:46px 38px 52px 34px / 40px 50px 34px 48px;padding:18px 24px 16px;text-align:center;max-width:350px;margin:0 0 22px;opacity:0;animation:pop .45s .9s cubic-bezier(.3,1.5,.5,1) both;box-shadow:5px 6px 0 var(--ink);transform:rotate(-1.5deg)}
+.bubble:before,.bubble:after{content:'';position:absolute;left:44%;width:0;height:0;border-style:solid}
+.bubble:before{bottom:-27px;border-width:26px 4px 0 24px;border-color:var(--ink) transparent transparent transparent;filter:drop-shadow(4px 3px 0 var(--ink))}
+.bubble:after{bottom:-19px;left:calc(44% + 3.5px);border-width:20px 2px 0 18px;border-color:var(--card) transparent transparent transparent}
+.bubble .spark{position:absolute;font-size:1.3rem;animation:twinkle 2.4s ease-in-out infinite}
+.bubble .s1{top:-14px;left:-8px}.bubble .s2{top:-10px;right:-6px;animation-delay:1.2s;font-size:1rem}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0);opacity:1}50%{transform:scale(.6) rotate(25deg);opacity:.55}}
 .bubble h1{font-family:Fredoka,sans-serif;font-size:2rem;line-height:1.1;margin:0}
 .bubble p{margin:6px 0 0;font-weight:700;font-size:1.08rem}
-.bubble .say{font-size:.95rem;color:var(--muted);margin-top:6px;min-height:1.3em}
+.bubble .say{display:inline-block;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;font-size:.88rem;font-weight:700;color:#8A5A00;background:#FFF1C9;border-radius:999px;padding:3px 12px;margin-top:9px;min-height:1.3em}
+.tap{position:absolute;left:-60px;top:168px;background:#E2701F;color:#fff;font-family:Fredoka,sans-serif;font-weight:600;font-size:1rem;padding:6px 12px;border-radius:999px;box-shadow:0 4px 0 #A94F12;white-space:nowrap;pointer-events:none;opacity:0;animation:fade .4s 2s both,nudge 1s 2.4s ease-in-out infinite;z-index:2}
+.tap.gone{animation:none;opacity:0;transition:opacity .3s}
+@keyframes nudge{0%,100%{transform:translateX(0) rotate(-5deg)}50%{transform:translateX(9px) rotate(-5deg)}}
 @keyframes pop{0%{transform:scale(.6) translateY(16px);opacity:0}100%{transform:none;opacity:1}}
 .name{font-family:Fredoka,sans-serif;font-weight:600;color:var(--muted);margin:2px 0 16px;font-size:.95rem;opacity:0;animation:fade .5s 1.3s both}
 @keyframes fade{to{opacity:1}}
@@ -64,8 +72,8 @@ body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align
 </head>
 <body>
 <div class="wrap">
-  <div class="bubble" role="status"><h1>Selamat datang, Rei!</h1><p>Let's learn Dutch &amp; English together. 😏</p><div class="say" id="say">Halo, aku Kuki! 🐾</div></div>
-  <div class="stage"><div class="kuki" id="kuki" role="button" tabindex="0" aria-label="Kuki"><svg viewBox="0 0 120 130" aria-hidden="true" class="kuki-svg">
+  <div class="bubble" role="status"><span class="spark s1">✨</span><span class="spark s2">✨</span><h1>Selamat datang, Rei!</h1><p>Let's learn Dutch &amp; English together. 😏</p><div class="say" id="say">Halo, aku Kuki! 🐾</div></div>
+  <div class="stage"><div class="tap" id="tap">Ketuk aku! 👉</div><div class="kuki" id="kuki" role="button" tabindex="0" aria-label="Kuki"><svg viewBox="0 0 120 130" aria-hidden="true" class="kuki-svg">
   <path class="k-branch" d="M4 121 Q60 112 116 122" stroke="#8A6A3B" stroke-width="7" stroke-linecap="round" fill="none"/>
   <path class="k-branch" d="M96 119 q8 -10 18 -10" stroke="#8A6A3B" stroke-width="4" stroke-linecap="round" fill="none"/><ellipse class="k-branch" cx="114" cy="106" rx="6" ry="3.5" fill="#7FB069" transform="rotate(-25 114 106)"/>
   <g class="m-arm-l"><ellipse cx="36" cy="97" rx="8.5" ry="15" fill="#C49A70" transform="rotate(22 36 97)"/><ellipse cx="41" cy="111" rx="7" ry="5" fill="#EBCFAE"/></g>
@@ -98,7 +106,6 @@ body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align
     <a class="choice en" id="go-en" href="english-v1.html"><span class="flag">🇬🇧</span><span class="t"><b>English</b><span class="s">Belajar bahasa Inggris</span><span class="p" id="p-en"></span></span><span class="go">›</span></a>
     <a class="choice nl" id="go-nl" href="dutch-v1.html"><span class="flag">🇳🇱</span><span class="t"><b>Nederlands</b><span class="s">Belajar bahasa Belanda</span><span class="p" id="p-nl"></span></span><span class="go">›</span></a>
   </div>
-  <div class="foot">Ketuk Kuki 🐾</div>
 </div>
 <script>
 const REPO = 'rudy104e/Kuki-for-Rei-';
@@ -116,7 +123,9 @@ const kuki = document.getElementById('kuki'), say = document.getElementById('say
 if (anyToday) setTimeout(() => kuki.classList.add('starry'), 1500);
 const LINES = ['Halo, aku Kuki! 🐾', 'Hihi, geli! 😆', 'Ayo belajar bareng! 📚', 'Kuki penasaran… hari ini belajar apa?', 'Psst… Kuki suka pisang 🍌', 'Pelan-pelan saja, aku juga kukang 🐢', 'Kamu pasti bisa! 💪', 'Mau bahasa Inggris atau Belanda? 🤔'];
 let li = 0;
+const tap = document.getElementById('tap');
 function poke(){
+  tap.classList.add('gone');
   kuki.classList.remove('jump'); void kuki.offsetWidth; kuki.classList.add('jump');
   li = (li + 1 + Math.floor(Math.random() * (LINES.length - 1))) % LINES.length; say.textContent = LINES[li];
 }
