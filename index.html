@@ -109,7 +109,7 @@ body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align
 </div>
 <script>
 const REPO = 'rudy104e/Kuki-for-Rei-';
-const today = () => Math.floor(Date.now() / 86400000);
+const today = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000);
 function get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
 function streak(days){ const s = new Set(days); let t = today(); if (!s.has(t)) t--; let n = 0; while (s.has(t)){ n++; t--; } return n; }
 let anyToday = false;
